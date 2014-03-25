@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -13,33 +14,48 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewActorLabel_actorId}"/>
-                    <h:outputText value="#{actorController.selected.actorId}" title="#{bundle.ViewActorTitle_actorId}"/>
-                    <h:outputText value="#{bundle.ViewActorLabel_firstName}"/>
-                    <h:outputText value="#{actorController.selected.firstName}" title="#{bundle.ViewActorTitle_firstName}"/>
-                    <h:outputText value="#{bundle.ViewActorLabel_lastName}"/>
-                    <h:outputText value="#{actorController.selected.lastName}" title="#{bundle.ViewActorTitle_lastName}"/>
-                    <h:outputText value="#{bundle.ViewActorLabel_lastUpdate}"/>
-                    <h:outputText value="#{actorController.selected.lastUpdate}" title="#{bundle.ViewActorTitle_lastUpdate}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:outputText>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{actorController.destroyAndView}" value="#{bundle.ViewActorDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewActorEditLink}"/>
-                <br />
-                <h:commandLink action="#{actorController.prepareCreate}" value="#{bundle.ViewActorCreateLink}" />
-                <br />
-                <h:commandLink action="#{actorController.prepareList}" value="#{bundle.ViewActorShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewActorIndexLink}"/>
 
-            </h:form>
+
+            <h:form prependId="false">  
+
+                <p:dataTable id="dataTable" var="actor" value="#{actorBean.actors}">  
+
+                    <f:facet name="header">  
+                        List of Actors  
+                    </f:facet>  
+
+                    <p:column>  
+                        <f:facet name="header">  
+                            ID's  
+                        </f:facet>  
+
+                        <p:column headerText="ID">  
+                            <h:outputText value="#{actor.actorId}" />  
+                        </p:column>  
+
+                    </p:column>  
+
+                    <p:column headerText="First Name">  
+                        <h:outputText value="#{actor.firstName}" />  
+                    </p:column>  
+
+                    <p:column headerText="Last Name">  
+                        <h:outputText value="#{actor.lastName}" />  
+                    </p:column>  
+
+                    <p:column headerText="Last Updated" footerText="Since some other time.">  
+                        <h:outputText value="#{actor.lastUpdate}" />  
+                    </p:column>  
+
+                    <f:facet name="footer">  
+                        In total there are Actors.  
+                    </f:facet>  
+
+                </p:dataTable>  
+
+            </h:form>  
+
+           
         </ui:define>
     </ui:composition>
 

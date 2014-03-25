@@ -6,6 +6,7 @@
 
 package com.mycompany.ejb;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -13,7 +14,7 @@ import javax.persistence.EntityManager;
  *
  * @author ncummins
  */
-public abstract class AbstractFacade<T> {
+public abstract class AbstractFacade<T> implements Serializable{
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
